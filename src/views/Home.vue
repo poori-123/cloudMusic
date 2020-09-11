@@ -1,18 +1,72 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="home">
+    <header>
+      <span class="iconfont icon-caidan"></span>
+      <p>云音乐</p>
+      <span class="iconfont icon-41"></span>
+    </header>
+    <nav>
+      <router-link to="/recommend"><span>推荐</span></router-link>
+      <router-link to="/singers"><span>歌手</span></router-link>
+      <router-link to="/rank"><span>排行榜</span></router-link>
+    </nav>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+  
 }
 </script>
+
+<style lang="scss" scoped>
+@import '../assets/global-style.scss';
+#home{
+  width: 100%;
+  height: 100%;
+  header{
+    width: 100%;
+    height: 0.5rem;
+    padding: 0.05rem 0.1rem;
+    background: $theme-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $font-color-light;
+    line-height: 0.4rem;
+    .iconfont{
+      font-size: 0.25rem;
+    }
+    p{
+      font-size: 0.2rem;
+    }
+  }
+  nav{
+    width: 100%;
+    height: 0.44rem;
+    display: flex;
+    background: $theme-color;
+    a{
+      flex: 1;
+      color: $font-color-light;
+      font-size: 0.14rem;
+      display: flex;
+      span{
+        margin: auto;
+        border-bottom: 0.02rem solid transparent;
+      }
+    }
+    .router-link-active span{
+      border-bottom: 0.02rem solid $font-color-light;
+    }
+  }
+  .page{
+    position: absolute;
+    top: 0.94rem;
+    bottom: 0;
+    width: 100%;
+  }
+}
+</style>
