@@ -67,6 +67,8 @@ export default {
     top: 0.94rem;
     bottom: 0;
     width: 100%;
+    background: $background-color;
+    overflow: hidden;
   }
 }
 </style>
