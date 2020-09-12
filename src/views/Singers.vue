@@ -29,7 +29,11 @@
         class="singerList" 
         v-if="loadOver"
         :inReload = "inReload"
-        @reload = "getDate">
+        @reload = "getDate"
+        :inLoadMore = "inLoadMore"
+        @loadMore = "getMoreDate"
+        :maxNum = "maxNum"
+        >
         <ul>
           <li v-for="item in singerList" :key="item.id">
             <img v-lazy="item.img1v1Url" alt="">
@@ -87,6 +91,8 @@ export default {
       singerList: state => state.singers.singerList,
       loadOver: state => state.singers.loadOver,
       inReload: state => state.singers.inReload,
+      inLoadMore: state => state.singers.inLoadMore,
+      maxNum: state => state.singers.maxNum
     }),
   },
   methods: {
@@ -103,13 +109,17 @@ export default {
     },
     getDate(){
       this.page = 0;
-      var payload = { ...this.choose, limit: 15 }
+      var payload = { ...this.choose, limit: 20 }
       this.$store.dispatch('singers/getSingerList', payload );
     },
     getMoreDate(){
       this.page++;
-      var payload = { ...this.choose, offset: this.page*15, limit: 15 };
-      this.$store.dispatch('singers/getMoreSingerList', payload );
+      if(this.choose.type === '' && this.choose.initial === ''){
+        this.$store.dispatch('singers/getMoreTopSingerList',{ offset: this.page*50 } );
+      }else{
+        var payload = { ...this.choose, offset: this.page*20, limit: 20 };
+        this.$store.dispatch('singers/getMoreSingerList', payload );
+      }
     }
   },
   created(){
