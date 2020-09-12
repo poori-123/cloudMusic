@@ -14,7 +14,7 @@
 import {mapState} from 'vuex'
 import BannerList from '../components/recommend/bannerList';
 import RecommendList from '../components/recommend/recommendList';
-import appScroll from '../components/common/scroll';
+// import appScroll from '../components/common/scroll';
 
 import Vue from 'vue';
 import { Loading } from 'vant';
@@ -25,7 +25,7 @@ export default {
   components: {
     BannerList,
     RecommendList,
-    appScroll
+    // appScroll
   },
   computed: {
     loadOver(){

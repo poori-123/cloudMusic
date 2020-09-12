@@ -8,10 +8,18 @@
 
 <script>
 export default {
+    props: {
+        scrollX: {
+            type: Boolean,
+            default: false
+        }
+    },
     mounted(){
         var scroll = new IScroll(this.$refs.scroll_box,{
             click: true,
-            tap: true
+            tap: true,
+            scrollX: this.scrollX,
+            scrollY: !this.scrollX
         });
         scroll.on('beforeScrollStart' , () => {
             scroll.refresh();

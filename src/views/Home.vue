@@ -10,7 +10,9 @@
       <router-link to="/singers"><span>歌手</span></router-link>
       <router-link to="/rank"><span>排行榜</span></router-link>
     </nav>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

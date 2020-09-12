@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import loadImg from '../../assets/music.png'
-import Vue from 'vue';
-import { Lazyload } from 'vant';
-Vue.use(Lazyload, {
-  lazyComponent: true,
-  loading: loadImg
-});
+// import loadImg from '../../assets/music.png'
+// import Vue from 'vue';
+// import { Lazyload } from 'vant';
+// Vue.use(Lazyload, {
+//   lazyComponent: true,
+//   loading: loadImg
+// });
 
 export default {
     filters: {

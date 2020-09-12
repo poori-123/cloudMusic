@@ -1,10 +1,13 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import './assets/iconfont.css'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import './assets/iconfont.css';
+import Plugins from './plugins';
 
-Vue.config.productionTip = false
+Vue.use(Plugins);
+
+Vue.config.productionTip = false;
 
 new Vue({
   router,
