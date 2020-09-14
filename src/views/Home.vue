@@ -3,7 +3,7 @@
     <header>
       <span class="iconfont icon-caidan"></span>
       <p>云音乐</p>
-      <span class="iconfont icon-41"></span>
+      <span class="iconfont icon-41" @click="$router.push('/search')"></span>
     </header>
     <nav>
       <router-link to="/recommend"><span>推荐</span></router-link>
