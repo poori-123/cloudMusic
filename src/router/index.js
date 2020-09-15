@@ -14,12 +14,26 @@ const routes = [
       {
         path: 'recommend',
         name: 'Recommend',
-        component: () => import(/* webpackChunkName : "recommend" */'../views/Recommend.vue')
+        component: () => import(/* webpackChunkName : "recommend" */'../views/Recommend.vue'),
+        children: [
+          {
+            path: ':id',
+            name: 'songList',
+            component: () => import(/* webpackChunkName : "songList" */'../views/songList.vue')
+          }
+        ]
       },
       {
         path: 'singers',
         name: 'Singers',
-        component: () => import(/* webpackChunkName : "singers" */'../views/Singers.vue')
+        component: () => import(/* webpackChunkName : "singers" */'../views/Singers.vue'),
+        children: [
+          {
+            path: ':id',
+            name: 'singerSongs',
+            component: () => import(/* webpackChunkName : "singerSongs" */'../views/singerSongs.vue')
+          }
+        ]
       },
       {
         path: 'rank',

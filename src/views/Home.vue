@@ -64,13 +64,5 @@ export default {
       border-bottom: 0.02rem solid $font-color-light;
     }
   }
-  .page{
-    position: absolute;
-    top: 0.94rem;
-    bottom: 0;
-    width: 100%;
-    background: $background-color;
-    overflow: hidden;
-  }
 }
 </style>

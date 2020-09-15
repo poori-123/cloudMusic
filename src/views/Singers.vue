@@ -1,4 +1,5 @@
 <template>
+<div>
   <div id="singers" class="page">
       <div class="chooseArea">
         <app-scroll class="classify" :scrollX="true">
@@ -35,13 +36,17 @@
         :maxNum = "maxNum"
         >
         <ul>
-          <li v-for="item in singerList" :key="item.id">
+          <li v-for="item in singerList" :key="item.id" @click="pushAction(item.id)" >
             <img v-lazy="item.img1v1Url" alt="">
             <h4>{{item.name}}</h4>
           </li>
         </ul>
       </scrollLoad>
   </div>
+  <transition enter-active-class="fly-in" leave-active-class="fly-out">
+    <router-view/>
+  </transition>
+</div>
 </template>
 
 <script>
@@ -120,6 +125,14 @@ export default {
         var payload = { ...this.choose, offset: this.page*20, limit: 20 };
         this.$store.dispatch('singers/getMoreSingerList', payload );
       }
+    },
+    pushAction(id){
+      this.$router.push({
+          name: 'singerSongs',
+          params: {
+              id
+          }
+      })
     }
   },
   created(){

@@ -1,4 +1,5 @@
 <template>
+<div>
   <div id="recommend" class="page">
     <div v-if="!loadOver" class="loading">
       <van-loading size="0.4rem" color="#d44439">正在努力加载中...</van-loading>
@@ -8,6 +9,11 @@
       <RecommendList :recommendList="recommendList" />
     </app-scroll>
   </div>
+  <transition enter-active-class="fly-in" leave-active-class="fly-out">
+    <router-view/>
+  </transition>
+</div>
+  
 </template>
 
 <script>

@@ -2,7 +2,7 @@
   <div class="recommendList">
       <h3>推荐歌单</h3>
       <ul>
-          <li v-for="item in recommendList">
+          <li v-for="item in recommendList" @click="pushAction(item)">
               <div class="imgbox">
                   <img alt="" v-lazy="item.picUrl">
                   <div class="mask"></div>
@@ -27,19 +27,18 @@
 // });
 
 export default {
-    filters: {
-        peopleNum(num){
-            if(num < 1000){
-                return num + '人';
-            }else if(num >= 0 && num < 10000){
-                return (num/10000).toFixed(1) + '万';
-            }else if(num >= 10000){
-                return Math.floor(num/10000) + '万';
-            }
-        }
-    },
     props: {
-        recommendList: Array
+        recommendList: Array,
+    },
+    methods: {
+        pushAction(item){
+            this.$router.push({
+                name: 'songList',
+                params: {
+                    id: item.id
+                }
+            })
+        }
     }
 }
 </script>

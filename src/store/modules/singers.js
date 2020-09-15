@@ -1,6 +1,6 @@
 import Http from '../../api/http';
 
-import {ARTIST_LIST,TOP_ARTISTS} from '../../api/url';
+import {ARTIST_LIST,TOP_ARTISTS,ARTISTS_SONGS} from '../../api/url';
 
 export default {
     namespaced: true,
@@ -9,12 +9,16 @@ export default {
         loadOver: false,
         inReload: false,
         inLoadMore: false,
-        maxNum: false
+        maxNum: false,
+        singerSongs: [],
+        artist:{},
+        inloadSingerSongs: false
     },
     getters: {
 
     },
     mutations: {
+        /* 设置歌手列表 */
         setSingerList( state, payload ){
             state.maxNum = false;
             state.singerList = payload;
@@ -34,7 +38,15 @@ export default {
         },
         noMore( state ){
             state.maxNum = true;
-        }
+        },
+        /* 设置歌手歌曲列表 */
+        setSingerSongs( state, payload ){
+            state.singerSongs = payload.dataList;
+            state.artist = payload.art;
+        },
+        toggleInloadSingerSongs( state ){
+            state.inloadSingerSongs = !state.inloadSingerSongs;
+        },
     },
     actions: {
         async getSingerList( store, payload = {} ){
@@ -81,6 +93,32 @@ export default {
             if( !more ){
                 store.commit( 'noMore' );
             }
+        },
+        /* 获取歌手歌曲列表 */
+        async getSingerSongs( store, payload){
+            store.commit('toggleInloadSingerSongs');
+            var {data: { hotSongs, artist }} = await Http.get(ARTISTS_SONGS,payload);
+            var dataList = hotSongs.map( item => ({
+                id: item.id,
+                name: item.name,
+                al: {
+                    id: item.al.id,
+                    name: item.al.name,
+                    picUrl: item.al.picUrl,
+                },
+                ar: item.ar
+            }) );
+            var art = {
+                id: artist.id,
+                name: artist.name,
+                picUrl: artist.picUrl
+            };
+            console.log(dataList)
+            console.log(art)
+            store.commit('setSingerSongs',{ dataList, art } );
+            setTimeout(() => {
+                store.commit('toggleInloadSingerSongs');
+            }, 3000);
         },
     }
 }

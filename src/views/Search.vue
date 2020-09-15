@@ -1,4 +1,5 @@
 <template>
+<transition enter-active-class="slide-in" leave-active-class="slide-out">
   <div id="search">
       <header>
           <span class="iconfont icon-fanhui" @click="$router.back()"></span>
@@ -6,6 +7,7 @@
           <span class="iconfont icon-message-close" v-show="isSearch"></span>
       </header>
   </div>
+</transition>
 </template>
 
 <script>
@@ -26,6 +28,7 @@ export default {
     height: 0;
     width: 100%;
     height: 100%;
+    z-index: 9;
     background: $background-color;
     header{
         width: 100%;
@@ -65,5 +68,19 @@ export default {
             color: $font-color-light;
         }
     }
+}
+@keyframes slide-in{
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0%);
+    }
+}
+.slide-in{
+    animation: slide-in 300ms ease-in;
+}
+.slide-out{
+    animation: slide-in 300ms ease-in reverse;
 }
 </style>
