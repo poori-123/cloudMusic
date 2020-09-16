@@ -7,7 +7,7 @@
             </div>
             <slot/>
             <div class="pull-up">
-                <img :src="pull_down_img" alt="" :class="{'turn': !isTurn}">
+                <img :src="pull_up_img" alt="" :class="{'turn': !isTurn}">
                 <span>{{ pull_up_text }}</span>
             </div>
         </div>
@@ -33,7 +33,8 @@ export default {
             pull_down_text: '下拉重新加载...',
             pull_down_img: arrow,
             isTurn: false,
-            pull_up_text: '上拉加载更多...'
+            pull_up_text: '上拉加载更多...',
+            pull_up_img: arrow,
         }
     },
     mounted(){
@@ -96,7 +97,7 @@ export default {
                 this.scroll.scrollTo(0, (this.scroll.maxScrollY + 100), 300);
             }else if( this.scroll.y <= this.scroll.maxScrollY ){
                 this.pull_up_text = '正在加载更多...';
-                this.pull_down_img = load;
+                this.pull_up_img = load;
                 this.$emit('loadMore');
             }
         })
@@ -111,16 +112,16 @@ export default {
         },
         inLoadMore(newVal){
             if(!newVal){
-                this.pull_down_img = arrow;
+                this.pull_up_img = arrow;
                 this.pull_up_text = '上拉加载更多...';
             }
         },
         maxNum(newVal){
             if(newVal){
-                this.pull_down_img = noMore;
+                this.pull_up_img = noMore;
                 this.pull_up_text = '没有更多了...';
             }else{
-                this.pull_down_img = arrow;
+                this.pull_up_img = arrow;
                 this.pull_up_text = '上拉加载更多...';
             }
         }
@@ -150,6 +151,16 @@ export default {
             font-size: 0.14rem;
             color: #333;
             margin-left: 0.1rem;
+        }
+    }
+    .scroll-wrap{
+        min-height: calc(100% + 1rem);
+        position: relative;
+        padding-bottom: 0.5rem;
+        .pull-up{
+            position: absolute;
+            left: 0;
+            bottom: 0;
         }
     }
 }

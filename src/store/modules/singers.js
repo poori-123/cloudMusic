@@ -82,9 +82,12 @@ export default {
             }
         },
         async getTopSingerList( store ){
-            var { data: { artists } } = await Http.get( TOP_ARTISTS );
+            var { data: { artists , more } } = await Http.get( TOP_ARTISTS );
             var list = artists.map( ({id,name,img1v1Url}) => ({id,name,img1v1Url}) );
             store.commit('setSingerList', list );
+            if( !more ){
+                store.commit( 'noMore' );
+            }
         },
         async getMoreTopSingerList( store, payload){
             var { data: { artists , more} } = await Http.get( TOP_ARTISTS, payload);

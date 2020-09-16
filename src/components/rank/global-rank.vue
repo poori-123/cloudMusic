@@ -2,7 +2,7 @@
   <div class="global">
       <h2>全球榜</h2>
       <ul>
-        <li v-for="item in globalList" :key="item.id">
+        <li v-for="item in globalList" :key="item.id" @click="pushAction(item)">
           <img v-lazy="item.coverImgUrl" alt="">
           <div class="mask"></div>
           <span>{{item.updateFrequency}}</span>
@@ -15,6 +15,16 @@
 export default {
   props: {
     globalList: Array
+  },
+  methods: {
+    pushAction(item){
+        this.$router.push({
+            name: 'rankSongList',
+            params: {
+                id: item.id
+            }
+        })
+    }
   }
 }
 </script>

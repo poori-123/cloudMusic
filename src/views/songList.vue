@@ -55,7 +55,7 @@ import { Loading } from 'vant';
 
 Vue.use(Loading);
 
-import Songs from '../components/recommend/songs';
+import Songs from '../components/songList/songs';
 
 export default {
   components: {
@@ -68,8 +68,8 @@ export default {
   },
   computed: {
     ...mapState({
-      songList: state => state.recommend.songList,
-      loadOver: state => state.recommend.getSongList
+      songList: state => state.songList.songList,
+      loadOver: state => state.songList.getSongList
     })
   },
   methods: {
@@ -89,7 +89,7 @@ export default {
   },
   created(){
     var id = this.$route.params.id;
-    this.$store.dispatch('recommend/getSongList',{id});
+    this.$store.dispatch('songList/getSongList',{id});
   }
 }
 </script>

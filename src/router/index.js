@@ -38,7 +38,14 @@ const routes = [
       {
         path: 'rank',
         name: 'Rank',
-        component: () => import(/* webpackChunkName : "rank" */'../views/Rank.vue')
+        component: () => import(/* webpackChunkName : "rank" */'../views/Rank.vue'),
+        children: [
+          {
+            path: ':id',
+            name: 'rankSongList',
+            component: () => import(/* webpackChunkName : "songList" */'../views/songList.vue')
+          }
+        ]
       },
       {
         path: 'search',

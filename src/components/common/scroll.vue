@@ -28,7 +28,9 @@ export default {
             scroll.refresh();
         });
         scroll.on( 'scroll', () => {
-            this.scrollAction( { x: scroll.x, y: scroll.y, scroll } )
+            if(this.scrollAction){
+                this.scrollAction( { x: scroll.x, y: scroll.y, scroll } )
+            }
         } );
     }
 }

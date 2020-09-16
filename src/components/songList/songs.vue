@@ -103,7 +103,7 @@ export default {
                 color: #333;
             }
             div{
-                flex: 1;
+                width: calc(100% - 0.6rem);
                 height: 0.6rem;
                 padding:  0.08rem 0;
                 border-bottom: 1px solid $border-color;
@@ -113,10 +113,18 @@ export default {
                 h3{
                     font-size: 0.16rem;
                     color: #333;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
                 h4{
                     font-size: 0.12rem;
                     color: $font-color-desc-v2;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
             }
         }
