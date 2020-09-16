@@ -37,5 +37,7 @@ export default {
 </script>
 
 <style>
-
+.scroll-wrap{
+    overflow: hidden;
+}
 </style>

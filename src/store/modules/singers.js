@@ -116,12 +116,8 @@ export default {
                 name: artist.name,
                 picUrl: artist.picUrl
             };
-            console.log(dataList)
-            console.log(art)
             store.commit('setSingerSongs',{ dataList, art } );
-            setTimeout(() => {
-                store.commit('toggleInloadSingerSongs');
-            }, 3000);
+            store.commit('toggleInloadSingerSongs');
         },
     }
 }

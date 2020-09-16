@@ -50,7 +50,19 @@ const routes = [
       {
         path: 'search',
         name: 'Search',
-        component: () => import(/* webpackChunkName : "search" */'../views/Search.vue')
+        component: () => import(/* webpackChunkName : "search" */'../views/Search.vue'),
+        children: [
+          {
+            path: ':id',
+            name: 'searchSongs',
+            component: () => import(/* webpackChunkName : "songList" */'../views/songList.vue')
+          },
+          {
+            path: ':id',
+            name: 'searchSingers',
+            component: () => import(/* webpackChunkName : "singerSongs" */'../views/singerSongs.vue')
+          }
+        ]
       }
     ]
   },

@@ -19,6 +19,7 @@
           <div class="top">
             <div class="filter">
               <img :src="songList.coverImgUrl" alt="">
+              <div class="fil"></div>
             </div>
             <div class="info">
               <div class="imgbox">
@@ -157,6 +158,14 @@ export default {
         left: 50%;
         transform: translate(-50%,-50%);
         width: 110%;
+      }
+      .fil{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(7, 17, 27, 0.2);
       }
     }
     .info{

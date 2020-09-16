@@ -6,7 +6,7 @@
             <span>播放全部 <i>(共{{data.length}}首)</i></span>
         </div>
         
-        <div class="btn">
+        <div class="btn" v-if="num">
             <span class="iconfont icon-tianjia"></span>
             <i>收藏({{num | peopleNum(1)}})</i>
         </div>

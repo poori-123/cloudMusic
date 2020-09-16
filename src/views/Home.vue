@@ -28,6 +28,7 @@ export default {
 #home{
   width: 100%;
   height: 100%;
+  position: relative;
   header{
     width: 100%;
     height: 0.5rem;
