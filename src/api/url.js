@@ -14,3 +14,5 @@ export const RANK_LIST = '/toplist/detail';
 export const SEARCH_HOT = '/search/hot';
 export const SUGGEST_LIST = '/search/suggest';
 export const SEARCH_LIST = '/search';
+
+export const SONG_KEY = '/lyric';

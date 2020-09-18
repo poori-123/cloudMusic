@@ -13,13 +13,16 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
+    <player/>
   </div>
 </template>
 
 <script>
-
+import player from './player';
 export default {
-  
+  components:{
+    player
+  }
 }
 </script>
 

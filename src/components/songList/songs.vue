@@ -3,7 +3,7 @@
     <div class="top">
         <div class="all">
             <span class="iconfont icon-bofang"></span>
-            <span>播放全部 <i>(共{{data.length}}首)</i></span>
+            <span @click="showAudioAction(0)">播放全部 <i>(共{{data.length}}首)</i></span>
         </div>
         
         <div class="btn" v-if="num">
@@ -12,7 +12,7 @@
         </div>
     </div>
     <ul class="list">
-        <li v-for="(item,index) in data" :key="item.id">
+        <li v-for="(item,index) in data" :key="item.id" @click="showAudioAction(index)">
             <span>{{index+1}}</span>
             <div>
                 <h3>{{item.name}}</h3>
@@ -28,6 +28,11 @@ export default {
     props: {
         data: Array,
         num: Number
+    },
+    methods:{
+        showAudioAction(index){
+            this.$store.commit('player/setShowAudio',{ list: this.data, index: index });
+        }
     },
     mounted(){
 
