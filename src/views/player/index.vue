@@ -9,6 +9,7 @@
             :isPlay="isPlay" 
             @control="controlAction" 
             @show="showAction" 
+            @showList="showListAction"
         />
       </transition>
       <transition 
@@ -26,10 +27,13 @@
             @control="controlAction" 
             @show="showAction" 
             ref="normalPlayer"
-            :value="value"
             @drag="dragAction"
             @switchKey="switchKeyAction"
+            @showList="showListAction"
         />
+      </transition>
+      <transition enter-active-class="list-slide-in" leave-active-class="list-slide-out" >
+          <play-list v-if="isShowList" @showList="showListAction" />
       </transition>
       <audio ref="audio"></audio>
   </div>
@@ -39,16 +43,19 @@
 import {mapState} from 'vuex';
 import MiniPlayer from './children/mini-player';
 import NormalPlayer from './children/normal-player';
+import PlayList from './children/playList';
 export default {
     components: {
         MiniPlayer,
-        NormalPlayer
+        NormalPlayer,
+        PlayList
     },
     data(){
         return {
             isPlay: false,
             isShow: false,
-            value: 0.5 //播放百分比
+            value: 0.5, //播放百分比
+            isShowList: false
         }
     },
     computed: {
@@ -58,7 +65,9 @@ export default {
             playIndex: state => state.player.playIndex,  //播放下表
             duration: state => state.player.duration,
             currentTime: state => state.player.currentTime,
-            chooseSort: state => state.player.chooseSort
+            chooseSort: state => state.player.chooseSort,
+            isRemove: state => state.player.isRemove,
+            removeFlag: state => state.player.removeFlag
         }),
         data(){
             return this.playList[this.playIndex];
@@ -67,6 +76,10 @@ export default {
     watch: {
         playIndex(newVal,oldVal){
             var audio = this.$refs.audio;
+            if(this.isRemove){
+                this.$store.commit('player/isRemoveAction');
+                return;
+            }
             audio.src = `https://music.163.com/song/media/outer/url?id=${this.playList[newVal].id}.mp3`;
             this.isPlay = true;
             this.$store.dispatch('player/getSongKeys',{ id: this.playList[newVal].id } );
@@ -77,7 +90,26 @@ export default {
             }else{
                 this.$refs.audio.pause();
             }
-        }
+        },
+        removeFlag(){
+            var audio = this.$refs.audio;
+            audio.src = `https://music.163.com/song/media/outer/url?id=${this.playList[this.playIndex].id}.mp3`;
+            this.isPlay = true;
+            this.$store.dispatch('player/getSongKeys',{ id: this.playList[this.playIndex].id } );
+        },
+        
+        // playList(newVal,oldVal){   
+        //     if(this.isRemove){
+        //         this.$store.commit('player/isRemoveAction');
+        //         return;
+        //     }
+        //     if(newVal[this.playIndex] !== oldVal[this.playIndex] ){
+        //         var audio = this.$refs.audio;
+        //         audio.src = `https://music.163.com/song/media/outer/url?id=${this.playList[this.playIndex].id}.mp3`;
+        //         this.isPlay = true;
+        //         this.$store.dispatch('player/getSongKeys',{ id: this.playList[this.playIndex].id } );
+        //     }
+        // }
     },
     methods: {
         controlAction(){
@@ -107,6 +139,9 @@ export default {
             this.$refs.audio.currentTime = time;
             this.$store.commit('player/setProgress', pro);
             this.$store.commit('player/setCurrentTime', time);
+        },
+        showListAction(){
+            this.isShowList = !this.isShowList;
         }
     },
     mounted(){
@@ -175,5 +210,20 @@ export default {
 }
 .nor-faded-out{
     animation: nor-faded 300ms ease-in reverse;
+}
+
+@keyframes list-slide{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.list-slide-in{
+    animation: list-slide 300ms ease-in;
+}
+.list-slide-out{
+    animation: list-slide 300ms ease-in reverse;
 }
 </style>

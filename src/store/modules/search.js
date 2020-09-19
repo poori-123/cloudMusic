@@ -60,11 +60,12 @@ export default {
             var searchList = songs.map( item => ({
                 id: item.id,
                 name: item.name,
-                album: {
+                al: {
                     id: item.album.id,
-                    name: item.album.name
+                    name: item.album.name,
+                    picUrl: item.album.artist.img1v1Url
                 },
-                artists: item.artists.map( ar => ({
+                ar: item.artists.map( ar => ({
                     id: ar.id,
                     name: ar.name
                 }) )

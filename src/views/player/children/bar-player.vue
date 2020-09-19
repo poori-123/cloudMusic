@@ -13,7 +13,7 @@
 import {mapState} from 'vuex';
 export default {
     props: {
-        value: Number
+        
     },
     data(){
         return {

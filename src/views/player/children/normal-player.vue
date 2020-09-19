@@ -6,7 +6,7 @@
           <div class="mask2"></div>
       </div>
       <header ref="header">
-          <div class="icon" @click="$emit('show')" >
+          <div class="icon" @click="showAction" >
               <span class="iconfont icon-jiantou1"></span>
           </div>
           <div class="msg">
@@ -44,7 +44,6 @@
           <div class="control-bar">
             <span>{{currentTime | timeF}}</span>
             <bar-player 
-                :value="value" 
                 @drag= "dragAction"
                 />
             <span>{{duration | timeF}}</span>
@@ -58,7 +57,7 @@
                 @click.stop="$emit('control')"
                 ></span>
               <span class="iconfont icon-xiayiqu101" @click="nextAction" ></span>
-              <span class="iconfont icon-liebiao"></span>
+              <span class="iconfont icon-liebiao" @click="$emit('showList')" ></span>
           </div>
       </footer>
   </div>
@@ -92,6 +91,9 @@ var aniMixin = {
             return {x,y,scale};
         },
         enterAni(done){
+            var disk = document.querySelector('.disk');
+            var header = document.querySelector('header');
+            var footer = document.querySelector('footer');
             {
                 var {x,y,scale} = this.getPositionOffset();
                 var animation = {
@@ -113,7 +115,7 @@ var aniMixin = {
                         easing: "linear",
                     },
                 });
-                animations.runAnimation(this.$refs.disk, "cd-enter-ani", done);
+                animations.runAnimation(disk, "cd-enter-ani", done);
             }
             {
                 var animation = {
@@ -132,7 +134,7 @@ var aniMixin = {
                         easing: "cubic-bezier(.81,.07,.73,1.61)",
                     }
                 });
-                animations.runAnimation(this.$refs.header, "header-enter-ani");
+                animations.runAnimation(header, "header-enter-ani");
             }
             {
                 var animation = {
@@ -151,18 +153,22 @@ var aniMixin = {
                         easing: "cubic-bezier(.81,.07,.73,1.61)",
                     }
                 });
-                animations.runAnimation(this.$refs.footer, "footer-enter-ani");
+                animations.runAnimation(footer, "footer-enter-ani");
             }
         },
         afterEnter(){
+            var disk = document.querySelector('.disk');
+            var header = document.querySelector('header');
+            var footer = document.querySelector('footer');
             animations.unregisterAnimation("cd-enter-ani");
             animations.unregisterAnimation("header-enter-ani");
             animations.unregisterAnimation("footer-enter-ani");
-            this.$refs.disk.style.animation = "";
-            this.$refs.header.style.animation = "";
-            this.$refs.footer.style.animation = "";
+            disk.style.animation = "";
+            header.style.animation = "";
+            footer.style.animation = "";
         },
         leaveAni(done){
+            var disk = document.querySelector('.disk');
             var {x,y,scale} = this.getPositionOffset();
             var animation = {
                 0: {
@@ -183,7 +189,7 @@ var aniMixin = {
                     easingL: "linear"
                 }
             });
-            animations.runAnimation(this.$refs.disk, "disk-leave-ani", done);
+            animations.runAnimation(disk, "disk-leave-ani", done);
 
         }
     }
@@ -197,7 +203,6 @@ export default {
         data: Object,
         playList: Array,
         isPlay: Boolean,
-        value: Number
     },
     mixins: [aniMixin],
     filters: {
@@ -232,6 +237,10 @@ export default {
         })
     },
     methods: {
+        showAction(){
+            this.showKeys = false;
+            this.$emit('show');
+        },
         choose(item){
             this.chooseSpeed = item;
         },

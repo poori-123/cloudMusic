@@ -15,6 +15,7 @@
         <span class="iconfont" :class="[isPlay ? playIcon : pauseIcon]" ></span>
     </div>
     <div class="list" @click.stop="showListAction" >
+        <i>{{playList.length}}</i>
         <span class="iconfont icon-liebiao"></span>
     </div>
   </div>
@@ -40,7 +41,7 @@ export default {
     },
     methods: {
         showListAction(){
-            console.log('list')
+            this.$emit('showList');
         }
     }
 }
@@ -113,6 +114,20 @@ export default {
         width: 0.3rem;
         height: 0.3rem;
         margin: 0 0.1rem;
+        position: relative;
+        i{
+            position: absolute;
+            top: -0.05rem;
+            right: 0;
+            width: 0.16rem;
+            height: 0.16rem;
+            font-size: 0.12rem;
+            text-align: center;
+            line-height: 0.16rem;
+            color: #fff;
+            background: $theme-color;
+            border-radius: 50%;
+        }
         .iconfont{
             font-size: 0.3rem;
             color: $theme-color;

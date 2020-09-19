@@ -13,7 +13,10 @@ export default{
 
         chooseSort:0, //切换方式
 
-        songKeys: []
+        songKeys: [],
+
+        removeFlag: 0,
+        isRemove: false
     },
     getters: {
         nowKey(state){
@@ -93,6 +96,23 @@ export default{
         },
         setSongKeys(state,payload){
             state.songKeys = payload;
+        },
+        changeSong(state,payload){
+            var index = state.playList.findIndex(item => item.id === payload);
+            state.playIndex = index;
+        },
+        removeSong(state,payload){
+            var index = state.playList.findIndex(item => item.id === payload);
+            state.playList.splice(index,1);
+            if( index < state.playIndex ){
+                state.playIndex--;
+                state.isRemove = true;
+            }else if( index == state.playIndex ){
+                state.removeFlag++;
+            }
+        },
+        isRemoveAction(state){
+            state.isRemove = false;
         }
 
     },

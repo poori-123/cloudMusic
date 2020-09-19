@@ -16,9 +16,9 @@
         </li>
       </div>
       <ul class="list">
-        <li v-for="(item,index) in searchList" :key="index">
+        <li v-for="(item,index) in searchList" :key="index" @click="playSongAction(item)" >
           <h4>{{item.name}}</h4>
-          <h5>{{item.artists.map( ar => ar.name ).join('/')}} - {{item.album.name}}</h5>
+          <h5>{{item.ar.map( ar => ar.name ).join('/')}} - {{item.al.name}}</h5>
         </li>
       </ul>
     </app-scroll>
@@ -53,6 +53,10 @@ export default {
             id
         }
       });
+    },
+    playSongAction(item){
+      console.log(item)
+      this.$store.commit('player/setShowAudio',{ list: [item], index: 0 });
     }
   }
 }
